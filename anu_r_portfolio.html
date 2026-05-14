@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anu R — IT Project Coordinator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a18;
+    --ink-muted: #6b6b65;
+    --ink-faint: #b0afa8;
+    --paper: #f8f6f0;
+    --paper-warm: #ede9e0;
+    --accent: #2d5a3d;
+    --accent-light: #d4e6da;
+    --accent-warm: #c8763a;
+    --accent-warm-light: #f5e8d8;
+    --rule: rgba(26,26,24,0.12);
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 56px;
+    background: rgba(248,246,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--rule);
+  }
+  .nav-brand {
+    font-family: var(--serif);
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 400; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--ink-muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 56px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 5rem 6rem 5rem;
+    border-right: 0.5px solid var(--rule);
+  }
+  .hero-eyebrow {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--accent);
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+  }
+  .hero-name em {
+    font-style: italic; color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 16px; font-weight: 300; line-height: 1.75;
+    color: var(--ink-muted); max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 4px;
+    background: var(--accent); color: #fff;
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.03em; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #234a31; transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 4px;
+    border: 1px solid var(--ink); color: var(--ink);
+    font-family: var(--sans); font-size: 13px; font-weight: 500;
+    letter-spacing: 0.03em; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--paper); transform: translateY(-1px); }
+
+  .hero-right {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6rem 4rem;
+    background: var(--paper-warm);
+  }
+  .stats-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    border: 0.5px solid var(--rule);
+    border-radius: 8px; overflow: hidden; margin-bottom: 2rem;
+  }
+  .stat-cell {
+    background: var(--paper);
+    padding: 1.75rem;
+    transition: background 0.2s;
+  }
+  .stat-cell:hover { background: #fff; }
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.5rem; line-height: 1; letter-spacing: -0.04em;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .stat-label { font-size: 12px; font-weight: 400; color: var(--ink-muted); letter-spacing: 0.02em; }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .badge {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 2px;
+    background: var(--accent-light); color: var(--accent);
+  }
+  .badge.warm { background: var(--accent-warm-light); color: var(--accent-warm); }
+
+  /* SECTIONS */
+  section { padding: 6rem 5rem; }
+  section + section { border-top: 0.5px solid var(--rule); }
+
+  .section-header {
+    display: flex; align-items: baseline; gap: 1.5rem;
+    margin-bottom: 3.5rem;
+  }
+  .section-num {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+
+  /* EXPERIENCE */
+  .exp-block { display: grid; grid-template-columns: 280px 1fr; gap: 4rem; margin-bottom: 4rem; }
+  .exp-block:last-of-type { margin-bottom: 0; }
+  .exp-meta { padding-top: 4px; }
+  .exp-company {
+    font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px;
+  }
+  .exp-role {
+    font-family: var(--serif); font-size: 1.1rem; font-style: italic;
+    color: var(--ink-muted); margin-bottom: 10px;
+  }
+  .exp-date {
+    font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-faint); margin-bottom: 16px;
+  }
+  .exp-tag {
+    display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 3px 8px; border-radius: 2px;
+    background: var(--accent-light); color: var(--accent);
+  }
+  .exp-content { border-left: 1px solid var(--rule); padding-left: 2.5rem; }
+  .exp-lead {
+    font-size: 16px; font-weight: 300; line-height: 1.75; color: var(--ink-muted);
+    margin-bottom: 1.5rem;
+  }
+  .exp-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .exp-list li {
+    font-size: 14px; font-weight: 300; line-height: 1.65; color: var(--ink);
+    padding-left: 1.25rem; position: relative;
+  }
+  .exp-list li::before {
+    content: '→'; position: absolute; left: 0;
+    color: var(--accent); font-size: 12px;
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px;
+    border: 0.5px solid var(--rule); border-radius: 8px; overflow: hidden;
+  }
+  .skill-group {
+    background: var(--paper); padding: 1.75rem;
+    transition: background 0.2s;
+  }
+  .skill-group:hover { background: #fff; }
+  .skill-group-label {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .skill-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-item {
+    font-size: 12px; font-weight: 400;
+    padding: 4px 10px; border-radius: 3px;
+    background: var(--paper-warm); color: var(--ink);
+  }
+
+  /* ACHIEVEMENTS */
+  .ach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .ach-card {
+    background: #fff; border: 0.5px solid var(--rule);
+    border-radius: 8px; padding: 1.75rem;
+    transition: box-shadow 0.2s, transform 0.15s;
+  }
+  .ach-card:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.06); transform: translateY(-2px); }
+  .ach-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--accent-light); display: flex; align-items: center; justify-content: center;
+    font-size: 16px; margin-bottom: 16px;
+  }
+  .ach-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+  .ach-desc { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--ink-muted); }
+
+  /* CONTACT */
+  .contact-wrapper {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start;
+  }
+  .contact-blurb {
+    font-family: var(--serif); font-size: clamp(1.4rem, 2.5vw, 2rem);
+    line-height: 1.35; letter-spacing: -0.02em; color: var(--ink);
+    font-style: italic;
+  }
+  .contact-details { display: flex; flex-direction: column; gap: 20px; }
+  .contact-row {
+    display: flex; align-items: center; gap: 14px;
+    padding-bottom: 20px; border-bottom: 0.5px solid var(--rule);
+  }
+  .contact-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .contact-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--paper-warm); display: flex; align-items: center;
+    justify-content: center; font-size: 15px; flex-shrink: 0;
+  }
+  .contact-text { flex: 1; }
+  .contact-lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 2px; }
+  .contact-val { font-size: 14px; color: var(--ink); }
+  .contact-val a { color: var(--accent); text-decoration: none; }
+  .contact-val a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer {
+    border-top: 0.5px solid var(--rule);
+    padding: 2rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+  .footer-brand { font-family: var(--serif); font-size: 15px; color: var(--ink); }
+
+  /* SEPARATOR */
+  .divider { height: 0.5px; background: var(--rule); margin: 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { gap: 1.25rem; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 5rem 2rem 3rem; border-right: none; border-bottom: 0.5px solid var(--rule); }
+    .hero-right { padding: 3rem 2rem; }
+    section { padding: 4rem 2rem; }
+    .exp-block { grid-template-columns: 1fr; gap: 1.5rem; }
+    .exp-content { border-left: none; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+    .ach-grid { grid-template-columns: 1fr; }
+    .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+    footer { padding: 2rem; flex-direction: column; gap: 8px; text-align: center; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s 0.1s both; }
+  .hero-name    { animation: fadeUp 0.6s 0.25s both; }
+  .hero-desc    { animation: fadeUp 0.6s 0.4s both; }
+  .hero-cta-row { animation: fadeUp 0.6s 0.55s both; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="#">Anu R.</a>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding: 0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow">IT Project Coordinator · Dubai, UAE</div>
+    <h1 class="hero-name">Delivering<br><em>Projects</em><br>That Land.</h1>
+    <p class="hero-desc">3+ years of zero-delay delivery across 20+ software, web, and digital marketing projects. Bridging technical teams and business stakeholders through Agile, JIRA, and clear communication.</p>
+    <div class="hero-cta-row">
+      <a class="btn-primary" href="mailto:anurathinaraj1602@gmail.com">Get in touch →</a>
+      <a class="btn-outline" href="https://www.linkedin.com/in/anur1602/" target="_blank">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <div class="stat-num">20+</div>
+        <div class="stat-label">Projects delivered</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">On-time delivery rate</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">JIRA tickets per sprint</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">3+</div>
+        <div class="stat-label">Years of experience</div>
+      </div>
+    </div>
+    <div class="badge-row">
+      <span class="badge">Agile · Scrum</span>
+      <span class="badge">Waterfall</span>
+      <span class="badge">JIRA Admin</span>
+      <span class="badge warm">Immediately Available</span>
+      <span class="badge warm">UAE-Based</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Work Experience</h2>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-meta">
+      <div class="exp-company">NRG Phoenix Technology</div>
+      <div class="exp-role">Junior IT Project Coordinator</div>
+      <div class="exp-date">Jan 2024 – Sep 2025 · India</div>
+      <span class="exp-tag">Agile &amp; Waterfall</span>
+    </div>
+    <div class="exp-content">
+      <p class="exp-lead">End-to-end ownership of 20+ concurrent projects — software builds, website launches, and digital marketing campaigns — with a perfect on-time record across every engagement.</p>
+      <ul class="exp-list">
+        <li>Administered JIRA across all active projects, creating and triaging 200+ tickets per sprint with custom dashboards that improved backlog visibility and cut standup prep time significantly.</li>
+        <li>Authored BRDs, FRDs, RAID logs, milestone trackers, and change request registers using MS Project, Excel, and Confluence, maintaining full audit-readiness across all releases.</li>
+        <li>Facilitated all Agile ceremonies — sprint planning, daily stand-ups, reviews, and retrospectives — aligning dev, QA, and product stakeholders on goals and acceptance criteria every cycle.</li>
+        <li>Introduced structured UAT validation checklists that reduced post-release defects and eliminated repeated deployment delays across all projects.</li>
+        <li>Maintained RAID logs and change control workflows, proactively escalating 10+ project risks to leadership and preventing scope creep across all managed engagements.</li>
+        <li>Standardised weekly stakeholder status reports adopted across all active projects, translating sprint outputs into clear, business-friendly communications.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="exp-block">
+    <div class="exp-meta">
+      <div class="exp-company">VVDN Technologies Pvt. Ltd</div>
+      <div class="exp-role">Software Engineer</div>
+      <div class="exp-date">Mar 2022 – Apr 2023 · India</div>
+      <span class="exp-tag">Java · Spring Boot</span>
+    </div>
+    <div class="exp-content">
+      <p class="exp-lead">Built backend systems and APIs for a Mentor-Mentee platform and a 5G cloud application, collaborating cross-functionally across the full SDLC — providing technical context that genuinely improved sprint estimation accuracy.</p>
+      <ul class="exp-list">
+        <li>Developed Java/Spring Boot backend applications and RESTful APIs with OAuth 2.0/JWT authentication.</li>
+        <li>Participated in Agile sprints using JIRA; worked cross-functionally with QA, DevOps, and product teams throughout the full SDLC.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Technical Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-label">Project Tools</div>
+      <div class="skill-items">
+        <span class="skill-item">JIRA</span>
+        <span class="skill-item">MS Project</span>
+        <span class="skill-item">MS Excel</span>
+        <span class="skill-item">Confluence</span>
+        <span class="skill-item">MS Teams</span>
+        <span class="skill-item">Google Workspace</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Methodologies</div>
+      <div class="skill-items">
+        <span class="skill-item">Agile / Scrum</span>
+        <span class="skill-item">Waterfall</span>
+        <span class="skill-item">SDLC</span>
+        <span class="skill-item">Sprint Planning</span>
+        <span class="skill-item">Backlog Management</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Documentation</div>
+      <div class="skill-items">
+        <span class="skill-item">BRD / FRD</span>
+        <span class="skill-item">RAID Logs</span>
+        <span class="skill-item">Status Reports</span>
+        <span class="skill-item">Change Requests</span>
+        <span class="skill-item">Milestone Trackers</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Development</div>
+      <div class="skill-items">
+        <span class="skill-item">Java</span>
+        <span class="skill-item">Spring Boot</span>
+        <span class="skill-item">SQL</span>
+        <span class="skill-item">Git</span>
+        <span class="skill-item">Postman</span>
+        <span class="skill-item">AWS (Fundamentals)</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">PM Practices</div>
+      <div class="skill-items">
+        <span class="skill-item">Resource Allocation</span>
+        <span class="skill-item">Budget Management</span>
+        <span class="skill-item">Vendor Management</span>
+        <span class="skill-item">KPI Tracking</span>
+        <span class="skill-item">Gantt Charts</span>
+        <span class="skill-item">Change Management</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-label">Languages</div>
+      <div class="skill-items">
+        <span class="skill-item">English (Professional)</span>
+        <span class="skill-item">Tamil (Native)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Key Achievements</h2>
+  </div>
+  <div class="ach-grid">
+    <div class="ach-card">
+      <div class="ach-icon">🎯</div>
+      <div class="ach-title">Perfect delivery record</div>
+      <div class="ach-desc">Delivered 20+ software, website, and digital marketing projects on time with 100% milestone completion — zero delays across all engagements.</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">📊</div>
+      <div class="ach-title">Org-wide reporting standard</div>
+      <div class="ach-desc">Standardised status reporting templates adopted organisation-wide, significantly reducing communication gaps between technical teams and business stakeholders.</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">⚡</div>
+      <div class="ach-title">Real-time JIRA visibility</div>
+      <div class="ach-desc">Built custom JIRA dashboards and sprint filters enabling real-time backlog health monitoring across all concurrent projects simultaneously.</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-icon">✅</div>
+      <div class="ach-title">Fewer post-release defects</div>
+      <div class="ach-desc">Reduced post-release defects by introducing structured UAT validation checklists and coordinated, phased deployment sign-off processes.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION (slim) -->
+<section id="education" style="padding-top: 3rem; padding-bottom: 3rem;">
+  <div class="section-header" style="margin-bottom: 1.5rem;">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Education</h2>
+  </div>
+  <div style="display: flex; align-items: baseline; gap: 2rem; flex-wrap: wrap;">
+    <div>
+      <div style="font-size: 14px; font-weight: 500; color: var(--ink);">Bachelor of Engineering — Computer Science &amp; Engineering</div>
+      <div style="font-size: 13px; color: var(--ink-muted); margin-top: 4px;">St. Xavier's Catholic College of Engineering, India · Graduated 2021</div>
+    </div>
+    <span class="badge">UAE-Attested Credentials</span>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background: var(--paper-warm);">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Let's Connect</h2>
+  </div>
+  <div class="contact-wrapper">
+    <div class="contact-blurb">"Immediately available, UAE-based, and ready to bring clarity to your next project."</div>
+    <div class="contact-details">
+      <div class="contact-row">
+        <div class="contact-icon">📞</div>
+        <div class="contact-text">
+          <div class="contact-lbl">Phone</div>
+          <div class="contact-val">+971 508 597 625</div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-text">
+          <div class="contact-lbl">Email</div>
+          <div class="contact-val"><a href="mailto:anurathinaraj1602@gmail.com">anurathinaraj1602@gmail.com</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">🔗</div>
+        <div class="contact-text">
+          <div class="contact-lbl">LinkedIn</div>
+          <div class="contact-val"><a href="https://www.linkedin.com/in/anur1602/" target="_blank">linkedin.com/in/anur1602</a></div>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-icon">📍</div>
+        <div class="contact-text">
+          <div class="contact-lbl">Location</div>
+          <div class="contact-val">Al Barsha, Dubai, UAE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Anu R.</span>
+  <span class="footer-copy">IT Project Coordinator · Dubai, UAE · 2025</span>
+</footer>
+
+</body>
+</html>
